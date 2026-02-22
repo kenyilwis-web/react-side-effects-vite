@@ -2,10 +2,11 @@ import { useState, useEffect, useCallback } from 'react'
 import JokeDisplay from './components/JokeDisplay'
 import FetchButton from './components/FetchButton'
 
+const ERROR_MESSAGE = 'Failed to fetch a joke. Please try again.'
+
 function App() {
   const [joke, setJoke] = useState('')
   const [loading, setLoading] = useState(true)
-  const errorMessage = 'Failed to fetch a joke. Please try again.'
 
   const fetchJoke = useCallback(async () => {
     setLoading(true)
@@ -27,11 +28,11 @@ function App() {
 
       setJoke(data.joke)
     } catch {
-      setJoke(errorMessage)
+      setJoke(ERROR_MESSAGE)
     } finally {
       setLoading(false)
     }
-  }, [errorMessage])
+  }, [])
 
   useEffect(() => {
     fetchJoke()
