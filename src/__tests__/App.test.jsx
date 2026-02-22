@@ -64,3 +64,15 @@ test('App component > fetches a new joke when button is clicked', async () => {
     expect(screen.getByText(/Another programming joke!/i)).toBeInTheDocument()
   })
 })
+
+test('App component > displays an error message when request fails', async () => {
+  global.fetch.mockRejectedValueOnce(new Error('Network error'))
+
+  render(<App />)
+
+  await waitFor(() => {
+    expect(
+      screen.getByText(/Failed to fetch a joke. Please try again./i)
+    ).toBeInTheDocument()
+  })
+})
